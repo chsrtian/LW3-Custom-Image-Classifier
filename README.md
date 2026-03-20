@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🌿 Custom Image Classifier — Plant Species Recognition
+# 🌿 LW3 — Custom Image Classifier
 
-**A deep learning image classification model trained to identify 20 plant species using TensorFlow and Google Colab.**
+**A plant species image classifier built with TensorFlow and trained on Google Colab.**
 
 [![Open in Colab](https://img.shields.io/badge/Open%20in-Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)](https://colab.research.google.com/drive/1qy31Hun2fxkCpeV0CWc2qBBjvuTY94_W?usp=sharing)
 
@@ -12,192 +12,131 @@
 
 ## 📋 Project Overview
 
-This project builds a **Convolutional Neural Network (CNN)** to classify images of plants into one of **20 species categories**. The model is trained on a dataset of over **5,000 images** organized by species, leveraging TensorFlow's image loading utilities and data augmentation techniques. The project explores model improvement strategies including **dropout regularization**, **data augmentation**, and **early stopping** to combat overfitting and improve generalization.
+This project is a custom image classifier that can identify **20 different plant species** from images. I trained a CNN model using TensorFlow on Google Colab with a dataset of over **5,000 images**. The project covers dataset preparation, model training, performance analysis, and model improvement techniques like data augmentation, dropout, and early stopping.
 
 ---
 
 ## 🔗 Google Colab Link
 
-Access the full notebook with code, outputs, and training history:
+You can view the full notebook here:
 
-> **[Open Notebook in Google Colab →](https://colab.research.google.com/drive/1qy31Hun2fxkCpeV0CWc2qBBjvuTY94_W?usp=sharing)**
-
----
-
-## 📂 Dataset Preparation
-
-### How was the dataset organized in Google Drive?
-
-The dataset was stored in a root folder called `ImageSet` on Google Drive. Inside this folder, each plant species had its own dedicated subfolder (e.g., `Barberries`, `Fuchsia`, `Forsythia`, etc.), with each subfolder containing images of that specific plant type. TensorFlow uses these folder names as class labels, automatically mapping each image to its corresponding category.
-
-### Why is folder structure important for TensorFlow image loading?
-
-> **Key Insight:** TensorFlow relies on the directory hierarchy to infer class labels. If images are misplaced or folder names are inconsistent, the model will assign incorrect labels — leading to poor or unpredictable results.
-
-A well-organized folder structure ensures:
-- **Automatic label assignment** — folder names become class names.
-- **Efficient data loading** — TensorFlow can batch and shuffle data seamlessly.
-- **Reproducibility** — a clean structure makes the pipeline easy to understand and reuse.
+> **[Open in Google Colab →](https://colab.research.google.com/drive/1qy31Hun2fxkCpeV0CWc2qBBjvuTY94_W?usp=sharing)**
 
 ---
 
-## 🧠 Model Training
+## 📂 1. Dataset Preparation
 
-### What is the role of convolutional layers in image classification?
+**How did you organize your dataset in Google Drive?**
 
-Convolutional layers are the backbone of image classification models. They extract spatial features from images by scanning for:
+I put all my dataset into one folder in Google Drive called `ImageSet`. Inside that, I made separate folders for each plant type — for example, `Barberries`, `Fuchsia`, `Forsythia`, and more. Each folder had pictures of that specific plant. TensorFlow used the folder names to know which pictures belonged to which plant type.
 
-- **Edges** and outlines
-- **Shapes** and structural patterns
-- **Textures** and fine-grained details
+**Why is folder structure important for TensorFlow image loading?**
 
-These learned features allow the model to distinguish between different plant species based on their visual characteristics.
+The folder structure matters a lot. TensorFlow looks at the folder names to figure out what kind of pictures are in them. If the pictures aren't in the right folders, TensorFlow will get confused and assign wrong labels. A good folder structure makes it easy and fast to get your dataset ready.
 
-### Why do we split data into training and validation sets?
+---
 
-Splitting the data serves a critical purpose:
+## 🧠 2. Model Training
 
-| Set | Purpose |
+**What is the role of layers in image classification?**
+
+Convolutional layers help find things in pictures — they look for edges, shapes, and textures. This helps the model tell plant types apart based on how they look.
+
+**Why do we split data into training and validation sets?**
+
+We split the data so the model can learn from some pictures and then test on others it hasn't seen before. This helps us see if the model is actually learning or just memorizing the training images.
+
+---
+
+## 📊 3. Performance Analysis
+
+**What accuracy did your model achieve?**
+
+My model got **52.57% accuracy** on the validation set. When I tested it on a picture of Barberries, it correctly said it was Barberries with **99.28% confidence**.
+
+**How did the number of images affect the model's performance?**
+
+Having a lot of images helped my model learn. I used over 5,000 images of 20 plant types. This gave the model many different pictures to learn from, but it also made things harder because there were so many types to tell apart.
+
+---
+
+## 🤔 4. Critical Thinking
+
+**What challenges did you encounter while using your dataset?**
+
+- It took a long time to load and train the model, especially with Google Drive.
+- I had to make sure all the folders and file names were correct. If they weren't, TensorFlow wouldn't work properly.
+- Some plant pictures looked really similar to each other, which made it hard for the model to tell them apart.
+
+**How can data augmentation improve your model?**
+
+Data augmentation helps by creating new pictures from the ones you already have — like flipping or rotating them. This gives the model more variety to learn from, and helps it not get too focused on one specific version of an image. It makes the model better at recognizing plants in general.
+
+---
+
+## 💡 5. Application
+
+**Suggest a real-world application for your trained model.**
+
+This model could be used as a plant identification tool. Someone can upload a picture of a plant and the system will tell them what type it is. This could help students, gardeners, and researchers who want a quick way to identify plants.
+
+**How can this system be integrated into a web application?**
+
+The system can be put into an app or website. Users can upload a picture or take one with their camera, and the app will send it to the model and show what type of plant it is. This can be done with **TensorFlow Lite** for mobile apps, or with a **Python backend** (like Flask or FastAPI) for web apps.
+
+---
+
+## 🔧 6. Model Improvement
+
+---
+
+**What signs indicated overfitting in my model?**
+
+My first model showed overfitting. The training accuracy got very high, but the validation accuracy stayed low. The training loss kept going down while the validation loss started going up. This means the model learned the training images too well and didn't do well with new images it hadn't seen before.
+
+**How did data augmentation affect validation accuracy?**
+
+Data augmentation helped. It showed the model different versions of the training images — like flipped and rotated ones. My improved model did better on validation images and had less overfitting. It helped the model learn in a more balanced way.
+
+**What is the purpose of dropout layers?**
+
+Dropout layers help reduce overfitting. They randomly turn off some neurons during training, which stops the model from relying too much on specific features. This way, it learns in a more balanced way and does better on new data.
+
+**Why does data augmentation improve generalization?**
+
+Data augmentation adds variety to the training data. The model sees different versions of the same images, so it becomes less sensitive to exact positions and sizes of objects in the pictures. This helps it classify new images more effectively.
+
+---
+
+## 📈 7. Performance Comparison
+
+**Compare accuracy before and after improvements.**
+
+| Model | Validation Accuracy |
 |---|---|
-| **Training Set** | Used to teach the model by adjusting its weights based on labeled examples. |
-| **Validation Set** | Used to evaluate the model on unseen data and detect overfitting. |
+| First Model (Baseline) | 52.57% |
+| Improved Model (Best) | 53.36% |
 
-Without a validation set, there is no way to determine whether the model is genuinely learning generalizable patterns or simply memorizing the training images.
+> The accuracy difference wasn't huge, but the training and validation curves got closer together in the improved model. This means the improved model had better generalization and less overfitting.
 
----
+**Which technique contributed most to improvement?**
 
-## 📊 Performance Analysis
-
-### What accuracy did the model achieve?
-
-| Metric | Value |
-|---|---|
-| Validation Accuracy | **52.57%** |
-| Test Prediction (Barberries) | **99.28% confidence** (correctly classified) |
-
-The model achieved a validation accuracy of **52.57%**. When tested on a sample image of *Barberries*, it correctly predicted the species with **99.28% confidence**.
-
-### How did the number of images affect performance?
-
-The dataset contained over **5,000 images** spanning **20 plant species**. While the large number of images provided diverse training examples, the high number of classes (20) made the classification task more challenging. With more classes, the model must learn finer distinctions between visually similar species.
+I think **data augmentation** and **dropout** helped the most. They directly reduced overfitting — data augmentation added variety to the training images, and dropout prevented the model from memorizing the data too much. **Early stopping** also helped by stopping the training when the validation performance stopped improving.
 
 ---
 
-## 🤔 Critical Thinking
+## 🚀 8. Deployment
 
-### What challenges were encountered while using the dataset?
+**Why is saving the model important?**
 
-Several challenges arose during training:
+Saving the model is important because it lets me reuse the trained model later without having to retrain it. This saves time and resources, and makes the model ready for deployment in applications like websites or mobile apps.
 
-- **Long load and training times** — particularly when mounting and reading data from Google Drive.
-- **File and folder naming issues** — incorrect names or misplaced files caused TensorFlow to fail during data loading.
-- **Visual similarity between species** — some plant types share similar features (e.g., leaf shape, color), making it difficult for the model to differentiate between them.
+**How can this model be deployed in a real-world system?**
 
-### How can data augmentation improve the model?
+This model can be deployed in a real-world system by integrating it into a web or mobile application:
 
-Data augmentation generates new training samples by applying transformations (e.g., rotation, flipping, zooming) to existing images. This:
-
-- **Increases the effective dataset size** without collecting new data.
-- **Reduces overfitting** by exposing the model to varied representations.
-- **Improves generalization** — the model becomes more robust to changes in orientation, scale, and position.
-
----
-
-## 💡 Application
-
-### Real-world application for the trained model
-
-This model can serve as the core of a **plant identification tool**. Users could upload or capture a photo of a plant, and the system would predict its species. Potential use cases include:
-
-- 🌱 **Students** — learning to identify plant species for coursework.
-- 🌻 **Gardeners** — identifying unknown plants in their garden.
-- 🔬 **Researchers** — rapid preliminary classification in field studies.
-
-### How can this system be integrated into a web application?
-
-The model can be deployed through multiple channels:
-
-- **Mobile App** — using **TensorFlow Lite** for on-device inference, enabling users to take a photo and get instant results.
-- **Web Application** — serving the model through a Python backend (e.g., **Flask** or **FastAPI**), where users upload images via a web interface and receive predictions in real time.
-
----
-
-## 🔧 Model Improvement
-
-### Part 2 — Addressing Overfitting
-
----
-
-### 1. What signs indicated overfitting in the initial model?
-
-The first model showed clear signs of overfitting:
-
-| Indicator | Training | Validation |
-|---|---|---|
-| **Accuracy** | Very high ↑ | Remained low ↓ |
-| **Loss** | Kept decreasing ↓ | Started increasing ↑ |
-
-> **Interpretation:** The model memorized the training data but failed to generalize to unseen validation images — a textbook case of overfitting.
-
-### 2. How did data augmentation affect validation accuracy?
-
-After applying data augmentation (flipping, rotation, etc.), the improved model showed:
-
-- **Better performance** on validation images.
-- **Reduced gap** between training and validation metrics.
-- **More balanced learning** — the model became less reliant on memorized training examples.
-
-### 3. What is the purpose of dropout layers?
-
-Dropout layers randomly deactivate a fraction of neurons during each training step. This prevents the model from becoming overly dependent on specific features and encourages it to learn more distributed, robust representations — leading to better generalization on new data.
-
-### 4. Why does data augmentation improve generalization?
-
-Data augmentation introduces variability into the training set by presenting transformed versions of the same images. The model becomes:
-
-- Less sensitive to **object position** and **orientation**.
-- More capable of handling **scale variations**.
-- Better at classifying images it has never seen before.
-
----
-
-## 📈 Performance Comparison
-
-### Accuracy before and after improvements
-
-| Model Version | Validation Accuracy |
-|---|---|
-| **Baseline Model** | 52.57% |
-| **Improved Model** | 53.36% (best) |
-
-> **Note:** While the numerical improvement was modest, the training and validation curves converged more closely in the improved model, indicating **better generalization** and **reduced overfitting**.
-
-### Which technique contributed most to improvement?
-
-The most impactful techniques were:
-
-1. **Data Augmentation** — added variety to the training images, reducing the risk of overfitting.
-2. **Dropout Layers** — prevented the model from memorizing training data by randomly disabling neurons.
-3. **Early Stopping** — halted training when validation performance stopped improving, avoiding unnecessary overfitting.
-
----
-
-## 🚀 Deployment
-
-### Why is saving the model important?
-
-Saving the trained model is essential because:
-
-- **Eliminates retraining** — the model can be loaded and used instantly without repeating the training process.
-- **Saves time and compute resources** — training is the most expensive step.
-- **Enables deployment** — a saved model can be integrated directly into web or mobile applications.
-
-### How can this model be deployed in a real-world system?
-
-| Deployment Target | Technology | Workflow |
-|---|---|---|
-| **Mobile Application** | TensorFlow Lite | User captures an image → on-device model predicts the plant species → result displayed instantly. |
-| **Web Application** | Flask / FastAPI | User uploads an image via the web interface → backend sends it to the model → prediction is returned and displayed. |
+- **Mobile App** — Using TensorFlow Lite, a user can capture an image of a plant, and the app predicts the plant type right on the device.
+- **Web App** — The model can be connected through a backend framework like Flask or FastAPI. Users upload an image through the website, and the model returns the prediction.
 
 ---
 
